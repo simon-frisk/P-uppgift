@@ -14,3 +14,6 @@ class Node:
         self.leftDownNode = None
         self.rightDownNode = None
         self.leftUpNode = None
+
+    def __lt__(self, other):
+        return self.distance < other.distance

@@ -1,4 +1,6 @@
 import node
+import heapq
+import copy
 
 
 def read_wind_data():
@@ -46,3 +48,9 @@ def initGraph(dimensions, wind_data):
 def setGraphStartAndGoal(graph, start_pos, goal_pos, width):
     graph[start_pos[1] * width + start_pos[0]].distance = 0
     graph[goal_pos[1] * width + goal_pos[0]].is_goal = True
+
+
+def getPriorityQueue(graph):
+    graph_copy = copy.copy(graph)
+    heapq.heapify(graph_copy)
+    return graph_copy

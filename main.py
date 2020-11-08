@@ -1,3 +1,4 @@
+import heapq
 import util
 
 
@@ -7,6 +8,7 @@ def main():
     start_pos = (1, 1)
     goal_pos = (3, 3)
     util.setGraphStartAndGoal(graph, start_pos, goal_pos, dimensions['width'])
+    prioQueue = util.getPriorityQueue(graph)
 
 
 if __name__ == '__main__':
