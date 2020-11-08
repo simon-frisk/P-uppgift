@@ -11,6 +11,8 @@ class Node:
 
     def visit(self):
         for index, neighbor in enumerate(self.neighBors):
+            if not neighbor:
+                continue
             distance = self.distance + self.calculateDistance(index)
             if distance < neighbor.distance:
                 neighbor.distance = distance

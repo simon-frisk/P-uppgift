@@ -39,6 +39,17 @@ class Graph:
         self.nodes[goal_pos[1] * self.dimensions['width'] +
                    goal_pos[0]].is_goal = True
 
+    def calculateFastestRoute(self):
+        prioQueue = self.getPriorityQueue()
+
+        while True:
+            node = heapq.heappop(prioQueue)
+            print('visiting: ', node.distance)
+            if node.is_goal:
+                # done
+                break
+            node.visit()
+
     def getPriorityQueue(self, ):
         graph_copy = copy.copy(self.nodes)
         heapq.heapify(graph_copy)
