@@ -9,6 +9,7 @@ def main():
     graph.setStart((1, 1))
     graph.setGoal((3, 3))
     prioQueue = graph.getPriorityQueue()
+    heapq.heappop(prioQueue).visit()
 
 
 if __name__ == '__main__':

@@ -9,8 +9,15 @@ class Node:
         self.is_goal = False
         self.neighBors = [None for _ in range(8)]
 
+    def visit(self):
+        for index, neighbor in enumerate(self.neighBors):
+            distance = self.distance + self.calculateDistance(index)
+            if distance < neighbor.distance:
+                neighbor.distance = distance
+                neighbor.previous = self
+
     def calculateDistance(self, neighborIndex):
-        sailing_type = abs(self.wind.direction / 45 - neighborIndex)
+        sailing_type = abs(self.wind['direction'] / 45 - neighborIndex + 1)
         distance = 1 if neighborIndex in [1, 3, 5, 7] else math.sqrt(2)
         if sailing_type == 0:
             return math.inf
