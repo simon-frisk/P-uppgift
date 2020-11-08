@@ -41,3 +41,8 @@ def initGraph(dimensions, wind_data):
                 rightUpNode.leftDownNode = currentNode
                 currentNode.rightUpNode = rightUpNode
     return nodes
+
+
+def setGraphStartAndGoal(graph, start_pos, goal_pos, width):
+    graph[start_pos[1] * width + start_pos[0]].distance = 0
+    graph[goal_pos[1] * width + goal_pos[0]].is_goal = True
