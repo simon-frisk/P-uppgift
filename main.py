@@ -1,14 +1,14 @@
 import heapq
 import util
+from graph import Graph
 
 
 def main():
     dimensions, wind_data = util.read_wind_data()
-    graph = util.initGraph(dimensions, wind_data)
-    start_pos = (1, 1)
-    goal_pos = (3, 3)
-    util.setGraphStartAndGoal(graph, start_pos, goal_pos, dimensions['width'])
-    prioQueue = util.getPriorityQueue(graph)
+    graph = Graph(dimensions, wind_data)
+    graph.setStart((1, 1))
+    graph.setGoal((3, 3))
+    prioQueue = graph.getPriorityQueue()
 
 
 if __name__ == '__main__':
