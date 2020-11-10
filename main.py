@@ -1,5 +1,6 @@
 import util
 from graph import Graph
+import gui
 
 
 def main():
@@ -9,6 +10,7 @@ def main():
     graph.setGoal((1, 2))
     graph.calculateFastestRoute()
     print(str(graph))
+    gui.createGUI(graph, dimensions)
 
 
 if __name__ == '__main__':
