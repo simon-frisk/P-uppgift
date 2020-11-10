@@ -7,6 +7,7 @@ class Graph:
     def __init__(self, dimensions, wind_data):
         self.dimensions = dimensions
         self.nodes = []
+
         for y in range(dimensions['height']):
             for x in range(dimensions['width']):
                 index = x + y * dimensions['width']
@@ -32,8 +33,10 @@ class Graph:
                     currentNode.neighBors[2] = rightUpNode
 
     def setStart(self, start_pos):
-        self.nodes[start_pos[1] * self.dimensions['width'] +
-                   start_pos[0]].distance = 0
+        startNode = self.nodes[start_pos[1] * self.dimensions['width'] +
+                               start_pos[0]]
+        startNode.distance = 0
+        startNode.numNodesFromStart = 0
 
     def setGoal(self, goal_pos):
         self.nodes[goal_pos[1] * self.dimensions['width'] +
@@ -41,16 +44,30 @@ class Graph:
 
     def calculateFastestRoute(self):
         prioQueue = self.getPriorityQueue()
-
         while True:
             node = heapq.heappop(prioQueue)
-            print('visiting: ', node.distance)
+            print(node.previous, node.distance, len(prioQueue))
             if node.is_goal:
-                # done
+                while node != None:
+                    print('Hello', node.wind)
+                    node.pathIndex = 1
+                    node = node.previous
                 break
             node.visit()
+            heapq.heapify(prioQueue)
 
-    def getPriorityQueue(self, ):
+    def getPriorityQueue(self):
         graph_copy = copy.copy(self.nodes)
         heapq.heapify(graph_copy)
         return graph_copy
+
+    def __str__(self):
+        decoration = '-' * self.dimensions['width']
+        string = decoration + '\n'
+
+        for index, node in enumerate(self.nodes):
+            string += str(node.numNodesFromStart) if node.pathIndex else ' '
+            if (index + 1) % self.dimensions['width'] == 0:
+                string += '\n'
+        string += decoration
+        return string
