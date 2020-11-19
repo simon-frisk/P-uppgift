@@ -4,9 +4,9 @@
 
 Detta program är tänkt att ge den snabbaste vägen att segla genom ett hav. Programmet tar in data om vinden i olika punkter på havet, samt mellan vilka punkter man vill segla och ger som resultat den snabbaste vägen man ska segla.
 
-# Utmaningar och svårigheter
+## Utmaningar och svårigheter
 
-En stor utmaning med detta program är att utveckla en bra algoritm. Detta problem är en shortest-path grafteoriproblem, vilket är ett relativt svårt matematiskt problem.
+En stor utmaning med detta program är att utveckla en bra algoritm. Detta problem är en shortest-path grafteoriproblem, vilket är ett utmanande matematiskt problem.
 
 ## Användningsområden
 
