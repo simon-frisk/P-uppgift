@@ -49,7 +49,7 @@ def renderGraph(graph, surface, image, font, width):
         elif node in graph.bestPath:
             pygame.draw.rect(surface, (100, 255, 0), (x, y, width, width), 10)
 
-        rotatedImage = pygame.transform.rotate(image, node.wind['direction'])
+        rotatedImage = pygame.transform.rotate(image, 180 - node.wind['direction'])
         surface.blit(rotatedImage, (x, y))
 
         textString = str(node.wind['strength'])
