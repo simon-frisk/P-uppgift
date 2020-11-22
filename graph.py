@@ -46,10 +46,8 @@ class Graph:
         prioQueue = self.getPriorityQueue()
         while True:
             node = heapq.heappop(prioQueue)
-            print(node.previous, node.distance, len(prioQueue))
             if node.is_goal:
                 while node != None:
-                    print('Hello', node.wind)
                     node.pathIndex = 1
                     node = node.previous
                 break
