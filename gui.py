@@ -28,7 +28,7 @@ def createGUI(graph):
                 row = event.pos[1] // boxWidth
                 column = event.pos[0] // boxWidth
                 pressed = pygame.key.get_pressed()
-                if pressed[pygame.K_n]:
+                if pressed[pygame.K_s]:
                     graph.setStart((column, row))
                 if pressed[pygame.K_g]:
                     graph.setGoal((column, row))

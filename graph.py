@@ -17,8 +17,10 @@ class Graph:
 
     def buildGraph(self, wind_data):
         '''Build the graph from wind_data. Store nodes in self.nodes'''
-        self.reset()
         self.nodes = []
+        self.startNode = None
+        self.goalNode = None
+        self.bestPath = []
         for y in range(self.height):
             for x in range(self.height):
                 index = x + y * self.width
@@ -61,21 +63,21 @@ class Graph:
 
     def setStart(self, start_pos):
         self.startNode = self.nodes[start_pos[1] * self.width + start_pos[0]]
-        self.startNode.distance = 0
         self.calculateFastestRoute()
 
     def setGoal(self, goal_pos):
-        self.reset()
         self.goalNode = self.nodes[goal_pos[1] * self.width + goal_pos[0]]
         self.calculateFastestRoute()
 
     def reset(self):
         for node in self.nodes:
             node.reset()
+        self.startNode.distance = 0
         self.bestPath = []
 
     def calculateFastestRoute(self):
         if not self.startNode or not self.goalNode: return
+        self.reset()
         prioQueue = self.getPriorityQueue()
         while True:
             node = heapq.heappop(prioQueue)
@@ -84,6 +86,7 @@ class Graph:
                     self.bestPath.append(node)
                     node = node.previous
                 self.bestPath.reverse()
+                print(len(self.bestPath))
                 break
             node.visit()
             heapq.heapify(prioQueue)
