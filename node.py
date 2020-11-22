@@ -26,7 +26,7 @@ class Node:
         if sailing_type == 0:
             speed = 0
         elif sailing_type == 1 or sailing_type == 7:
-            speed = self.wind['strength'] if self.wind['strength'] < 5 else math.inf
+            speed = self.wind['strength'] if self.wind['strength'] < 5 else 0
         elif sailing_type == 2 or sailing_type == 6:
             constant = .5 if self.wind['strength'] < 7 else .25
             speed = self.wind['strength'] * constant

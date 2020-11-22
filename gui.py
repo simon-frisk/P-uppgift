@@ -7,7 +7,7 @@ import math
 
 def createGUI(graph):
     FPS = 50
-    windowWidth = 600
+    windowWidth = 650
     windowHeight = (graph.height // graph.width) * windowWidth
     boxWidth = windowWidth // graph.width
 
@@ -15,7 +15,7 @@ def createGUI(graph):
     display_surface = pygame.display.set_mode((windowWidth, windowHeight))
     pygame.display.set_caption('Sailing')
     clock = pygame.time.Clock()
-    font = pygame.font.SysFont(None, boxWidth // 3)
+    font = pygame.font.SysFont(None, round(boxWidth / 2.5))
 
     windArrow = pygame.image.load('assets/arrow.png')
     windArrow = pygame.transform.scale(windArrow, (boxWidth, boxWidth))
@@ -52,8 +52,12 @@ def renderGraph(graph, surface, image, font, width):
         rotatedImage = pygame.transform.rotate(image, 180 - node.wind['direction'])
         surface.blit(rotatedImage, (x, y))
 
-        textString = str(node.wind['strength'])
-        text = font.render(textString, False, (255, 255, 255))
-        textX = x + width / 2 - font.size(textString)[0] / 2
-        textY = y + width / 2 - font.size(textString)[1] / 2
+        distanceString = str(round(node.distance, 2))
+        text = font.render(distanceString, False, (0, 0, 0))
+        surface.blit(text, (x, y))
+
+        strengthString = str(node.wind['strength'])
+        text = font.render(strengthString, False, (255, 255, 255))
+        textX = x + width / 2 - font.size(strengthString)[0] / 2
+        textY = y + width / 2 - font.size(strengthString)[1] / 2
         surface.blit(text, (textX, textY))

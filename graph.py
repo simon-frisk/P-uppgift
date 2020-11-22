@@ -86,7 +86,6 @@ class Graph:
                     self.bestPath.append(node)
                     node = node.previous
                 self.bestPath.reverse()
-                print(len(self.bestPath))
                 break
             node.visit()
             heapq.heapify(prioQueue)
