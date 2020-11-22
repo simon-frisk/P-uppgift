@@ -1,16 +1,21 @@
-import util
+import sys
 from graph import Graph
 import gui
 
 
 def main():
-    dimensions, wind_data = util.read_wind_data()
-    graph = Graph(dimensions, wind_data)
-    graph.setStart((1, 1))
-    graph.setGoal((10, 10))
-    graph.calculateFastestRoute()
-    print(str(graph))
-    gui.createGUI(graph, dimensions)
+    graph = Graph()
+    #graph.setStart((1, 1))
+    #graph.setGoal((10, 10))
+    #graph.calculateFastestRoute()
+    mode = sys.argv[1] if len(sys.argv) == 2 else None
+    if mode == '-gui':
+        gui.createGUI(graph)
+    elif mode == '-cli':
+        #print(str(graph))
+        pass
+    else:
+        print('No mode choosen')
 
 
 if __name__ == '__main__':

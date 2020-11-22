@@ -4,12 +4,12 @@ import math
 class Node:
     def __init__(self, wind):
         self.wind = wind
-        self.distance = math.inf
-        self.numNodesFromStart = math.inf
-        self.previous = None
-        self.is_goal = False
         self.neighBors = [None for _ in range(8)]
-        self.pathIndex = None
+        self.reset()
+
+    def reset(self):
+        self.distance = math.inf
+        self.previous = None
 
     def visit(self):
         for index, neighbor in enumerate(self.neighBors):
@@ -18,7 +18,6 @@ class Node:
             distance = self.distance + self.calculateDistance(index)
             if distance < neighbor.distance:
                 neighbor.distance = distance
-                neighbor.numNodesFromStart = self.numNodesFromStart + 1
                 neighbor.previous = self
 
     def calculateDistance(self, neighborIndex):
