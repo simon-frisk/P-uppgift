@@ -1,13 +1,14 @@
 import sys
 from graph import Graph
-import gui
+from gui import Gui
 
 
 def main():
     graph = Graph()
     mode = sys.argv[1] if len(sys.argv) == 2 else None
     if mode == '-gui':
-        gui.createGUI(graph)
+        gui = Gui(graph)
+        gui.run()
     elif mode == '-cli':
         pass
     else:
