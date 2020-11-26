@@ -1,28 +1,33 @@
 import node
 import heapq
 import copy
+import random
 
 
 class Graph:
+    '''Class for Graph objects, which represents the whole sea. Stores all nodes,
+    can manipulate graph and calculate fastest route'''
+
     def __init__(self):
-        '''Create a new graph'''
-        width, height, wind_data = self.loadFromFile()
-        self.width = width
-        self.height = height
+        '''Graph constructor'''
+        self.width = None
+        self.height = None
         self.nodes = []
         self.goalNode = None
         self.startNode = None
         self.bestPath = []
-        self.buildGraph(wind_data)
+        self.loadFromFile()
 
-    def buildGraph(self, wind_data):
+    def buildGraph(self, wind_data, width, height):
         '''Build the graph from wind_data. Store nodes in self.nodes'''
+        self.width = width
+        self.height = height
         self.nodes = []
         self.startNode = None
         self.goalNode = None
         self.bestPath = []
         for y in range(self.height):
-            for x in range(self.height):
+            for x in range(self.width):
                 index = x + y * self.width
                 currentNode = node.Node(wind_data[index])
                 self.nodes.append(currentNode)
@@ -46,7 +51,7 @@ class Graph:
 
 
     def loadFromFile(self):
-        '''Reads wind data from file'''
+        '''Reads wind data from file and builds graph from this'''
         data_file = open('wind_data.txt', 'r')
 
         width, height = data_file.readline().strip().split(' ')
@@ -59,7 +64,17 @@ class Graph:
             strength, direction = node.split('/')
             wind_data.append({'strength': int(strength),
                             'direction': int(direction)})
-        return width, height, wind_data
+        self.buildGraph(wind_data, width, height)
+
+    def generateRandom(self, width, height):
+        '''Randomly generate a new graph'''
+        wind_data = []
+        for h in range(height):
+            for w in range(width):
+                strength = random.randrange(10)
+                direction = random.choice([0, 45, 90, 135, 180, 225, 270, 315])
+                wind_data.append({'strength': strength, 'direction': direction})
+        self.buildGraph(wind_data, width, height)
 
     def setStart(self, start_pos):
         self.startNode = self.nodes[start_pos[1] * self.width + start_pos[0]]
