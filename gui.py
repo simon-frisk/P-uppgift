@@ -34,8 +34,7 @@ def createGUI(graph):
                     graph.setGoal((column, row))
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_r:
-                    if pressed[pygame.K_H] && pressed[pygame.K_U]
-                    graph.generateRandom(width, height)
+                    graph.generateRandom(graph.width, graph.height)
 
         renderGraph(graph, display_surface, windArrow, font, boxWidth)
         pygame.display.update()
