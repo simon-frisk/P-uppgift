@@ -25,6 +25,8 @@ class Gui:
         self.updateDimensions()
         self.surface = pygame.display.set_mode(self.dimensions)
         pygame.display.set_caption('Sailing')
+        icon = pygame.image.load('assets/sailboat.png')
+        pygame.display.set_icon(icon)
         self.ui_manager = pygame_gui.UIManager((self.gui_width, self.sea_height))
         self.initGui()
 
