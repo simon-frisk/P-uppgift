@@ -49,6 +49,15 @@ class Graph:
                     rightUpNode.neighBors[6] = currentNode
                     currentNode.neighBors[2] = rightUpNode
 
+    def generateRandom(self, width, height):
+        '''Randomly generate a new graph'''
+        wind_data = []
+        for h in range(height):
+            for w in range(width):
+                strength = random.randrange(10)
+                direction = random.choice([0, 45, 90, 135, 180, 225, 270, 315])
+                wind_data.append({'strength': strength, 'direction': direction})
+        self.buildGraph(wind_data, width, height)
 
     def loadFromFile(self):
         '''Reads wind data from file and builds graph from this'''
@@ -66,15 +75,15 @@ class Graph:
                             'direction': int(direction)})
         self.buildGraph(wind_data, width, height)
 
-    def generateRandom(self, width, height):
-        '''Randomly generate a new graph'''
-        wind_data = []
-        for h in range(height):
-            for w in range(width):
-                strength = random.randrange(10)
-                direction = random.choice([0, 45, 90, 135, 180, 225, 270, 315])
-                wind_data.append({'strength': strength, 'direction': direction})
-        self.buildGraph(wind_data, width, height)
+    def saveToFile(self):
+        '''Save current graph to file'''
+        data_file = open('wind_data.txt', 'w')
+        size_line = f'{self.width} {self.height}'
+        wind_data_line = ''
+        for node in self.nodes:
+            wind_data_line += f"{node.wind['strength']}/{node.wind['direction']} "
+        data_file.write(size_line + '\n' + wind_data_line)
+
 
     def setStart(self, start_pos):
         self.startNode = self.nodes[start_pos[1] * self.width + start_pos[0]]

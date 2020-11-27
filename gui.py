@@ -4,6 +4,9 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 import pygame_gui
 import math
+import sys
+
+# TODO: bug with font size when resizing
 
 class Gui:
     '''Class for GUI object, which handles creating and running GUI and rendering on the screen'''
@@ -52,6 +55,11 @@ class Gui:
             relative_rect=pygame.Rect((self.gui_width / 2 + 10, 60), (self.gui_width / 2 - 20, 40)),
             manager=self.ui_manager,
         )
+        self.saveGraphButton = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect((10, 110), (self.gui_width - 20, 40)),
+            manager=self.ui_manager,
+            text='Save graph'
+        )
         self.widthTextBox.set_text(str(self.graph.width))
         self.heightTextBox.set_text(str(self.graph.height))
         self.widthTextBox.set_allowed_characters('numbers')
@@ -69,6 +77,7 @@ class Gui:
                 pressed = pygame.key.get_pressed()
                 if event.type == pygame.QUIT:
                     pygame.quit()
+                    sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x = (event.pos[0] - self.gui_width) // self.node_width
                     y = event.pos[1] // self.node_width
@@ -85,6 +94,8 @@ class Gui:
                                 height = int(self.heightTextBox.get_text())
                                 self.graph.generateRandom(width, height)
                                 self.updateDimensions()
+                        if event.ui_element == self.saveGraphButton:
+                            self.graph.saveToFile()
                 self.ui_manager.process_events(event)
 
             self.surface.fill((0, 0, 0))
