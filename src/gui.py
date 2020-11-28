@@ -88,6 +88,7 @@ class Gui:
         while True:
             time_delta = self.clock.tick(self.FPS) / 1000.0
 
+            #Loop through and handle all events that happened
             for event in pygame.event.get():
                 pressed = pygame.key.get_pressed()
 
