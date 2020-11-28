@@ -24,11 +24,13 @@ class Graph:
         self.nodes = []
         self.startNode = None
         self.goalNode = None
+
         for y in range(self.height):
             for x in range(self.width):
                 index = x + y * self.width
                 currentNode = node.Node(wind_data[index])
                 self.nodes.append(currentNode)
+
                 # Check if neighboring nodes exist, and if they do, add a relation.
                 if index % self.width != 0:
                     leftNode = self.nodes[index - 1]
@@ -90,14 +92,17 @@ class Graph:
 
 
     def setStart(self, start_pos):
+        '''Set one node to the starting node. Takes the coordinate of the node as argument'''
         self.startNode = self.nodes[start_pos[1] * self.width + start_pos[0]]
         self.calculateFastestRoute()
 
     def setGoal(self, goal_pos):
+        '''Set one node to the goal node. Takes the coordinate of the node as argument'''
         self.goalNode = self.nodes[goal_pos[1] * self.width + goal_pos[0]]
         self.calculateFastestRoute()
 
     def reset(self):
+        '''Reset all nodes so Dijstra can be run again'''
         for node in self.nodes:
             node.reset()
         self.startNode.distance = 0
