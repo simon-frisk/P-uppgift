@@ -15,7 +15,6 @@ class Graph:
         self.nodes = []
         self.goalNode = None
         self.startNode = None
-        self.bestPath = []
         self.loadFromFile()
 
     def buildGraph(self, wind_data, width, height):
@@ -25,7 +24,6 @@ class Graph:
         self.nodes = []
         self.startNode = None
         self.goalNode = None
-        self.bestPath = []
         for y in range(self.height):
             for x in range(self.width):
                 index = x + y * self.width
@@ -103,7 +101,6 @@ class Graph:
         for node in self.nodes:
             node.reset()
         self.startNode.distance = 0
-        self.bestPath = []
 
     def calculateFastestRoute(self):
         '''Calculate the fastest routes from start to end node with Dijstra'''
@@ -113,10 +110,15 @@ class Graph:
         while True:
             node = heapq.heappop(prioQueue)
             if node == self.goalNode:
+                lengthIndex = 0
+                temp = node
+                while temp != None:
+                    lengthIndex += 1
+                    temp = temp.previous
                 while node != None:
-                    self.bestPath.append(node)
+                    node.bestPathIndex = lengthIndex
+                    lengthIndex -= 1
                     node = node.previous
-                self.bestPath.reverse()
                 break
             node.visit()
             heapq.heapify(prioQueue)

@@ -47,8 +47,8 @@ class TextInterface:
         nodeCharacter = 'S'
       elif node == self.graph.goalNode:
         nodeCharacter = 'G'
-      elif node in self.graph.bestPath:
-        nodeCharacter = 'P'
+      elif node.bestPathIndex != None:
+        nodeCharacter = node.bestPathIndex
 
       print(
         nodeCharacter,

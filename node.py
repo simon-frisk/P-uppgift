@@ -14,6 +14,7 @@ class Node:
         '''Reset node to beginning state so Dijstra can be run again'''
         self.distance = math.inf
         self.previous = None
+        self.bestPathIndex = None
 
     def visit(self):
         '''Visit node step of dijstra'''

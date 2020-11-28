@@ -124,19 +124,19 @@ class Gui:
             y = index // self.graph.width * self.node_width
 
             pygame.draw.rect(self.surface, (0, 100, 255), (x, y, self.node_width, self.node_width))
+            if node.bestPathIndex != None:
+                pygame.draw.rect(self.surface, (100, 255, 0), (x, y, self.node_width, self.node_width), 2)
+                distanceString = str(round(node.bestPathIndex, 2))
+                text = self.font.render(distanceString, False, (0, 0, 0))
+                self.surface.blit(text, (x, y))
+
             if node == self.graph.startNode:
                 pygame.draw.rect(self.surface, (255, 200, 0), (x, y, self.node_width, self.node_width), 2)
             elif node == self.graph.goalNode:
                 pygame.draw.rect(self.surface, (255, 0, 0), (x, y, self.node_width, self.node_width), 2)
-            elif node in self.graph.bestPath:
-                pygame.draw.rect(self.surface, (100, 255, 0), (x, y, self.node_width, self.node_width), 2)
 
             rotatedImage = pygame.transform.rotate(self.scaledWindArrowImage, 180 - node.wind['direction'])
             self.surface.blit(rotatedImage, (x, y))
-
-            distanceString = str(round(node.distance, 2))
-            text = self.font.render(distanceString, False, (0, 0, 0))
-            self.surface.blit(text, (x, y))
             
             strengthString = str(node.wind['strength'])
             text = self.font.render(strengthString, False, (255, 255, 255))
