@@ -6,8 +6,6 @@ import pygame_gui
 import math
 import sys
 
-# TODO: bug with font size when resizing
-
 class Gui:
     '''Class for GUI object, which handles creating and running GUI and rendering on the screen'''
 
@@ -19,31 +17,39 @@ class Gui:
         self.sea_height = None
         self.sea_width = None
         self.node_width = None
+        self.font = None
+        self.ui_manager = None
+        self.initialized = False
         
+        self.initializeOrUpdate()
+        self.initUI()
+        
+    # What should this be named??????
+    def initializeOrUpdate(self):
+        '''Initializes pygame and gui if not initialized, otherwise just updates
+        to latest settings'''
         pygame.init()
-        self.windArrowImage = pygame.image.load('assets/arrow.png')
-        self.updateDimensions()
-        self.surface = pygame.display.set_mode(self.dimensions)
-        pygame.display.set_caption('Sailing')
-        icon = pygame.image.load('assets/sailboat.png')
-        pygame.display.set_icon(icon)
-        self.ui_manager = pygame_gui.UIManager((self.gui_width, self.sea_height))
-        self.initGui()
 
-        self.clock = pygame.time.Clock()
-        self.font = pygame.font.SysFont(None, round(self.node_width / 2.5))
-
-    def updateDimensions(self):
-        '''Update dimensions of window and sea according to graph'''
         self.sea_height = 650
         self.sea_width = round((self.graph.width / self.graph.height) * self.sea_height)
         self.node_width = self.sea_width // self.graph.width
+
         self.surface = pygame.display.set_mode(self.dimensions)
+
+        if not self.initialized:
+            pygame.display.set_caption('Sailing')
+            icon = pygame.image.load('assets/sailboat.png')
+            pygame.display.set_icon(icon)
+            self.clock = pygame.time.Clock()
+            self.windArrowImage = pygame.image.load('assets/arrow.png')
+            self.initialized = True
+
         self.scaledWindArrowImage = pygame.transform.scale(self.windArrowImage, (self.node_width, self.node_width))
-
-
-    def initGui(self):
+        self.font = pygame.font.SysFont(None, round(self.node_width / 2.5))
+        
+    def initUI(self):
         '''Init the user interface'''
+        self.ui_manager = pygame_gui.UIManager((self.gui_width, self.sea_height))
         self.generateNewGraphButton = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect((10, 10), (self.gui_width - 20, 40)),
             manager=self.ui_manager,
@@ -95,7 +101,7 @@ class Gui:
                                 width = int(self.widthTextBox.get_text())
                                 height = int(self.heightTextBox.get_text())
                                 self.graph.generateRandom(width, height)
-                                self.updateDimensions()
+                                self.initializeOrUpdate()
                         if event.ui_element == self.saveGraphButton:
                             self.graph.saveToFile()
                 self.ui_manager.process_events(event)
