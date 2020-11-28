@@ -100,6 +100,7 @@ class Graph:
         self.bestPath = []
 
     def calculateFastestRoute(self):
+        '''Calculate the fastest routes from start to end node with Dijstra'''
         if not self.startNode or not self.goalNode: return
         self.reset()
         prioQueue = self.getPriorityQueue()
@@ -115,6 +116,7 @@ class Graph:
             heapq.heapify(prioQueue)
 
     def getPriorityQueue(self):
+        '''Return a heapified version of the node list'''
         graph_copy = copy.copy(self.nodes)
         heapq.heapify(graph_copy)
         return graph_copy

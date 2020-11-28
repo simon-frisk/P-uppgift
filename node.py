@@ -2,16 +2,21 @@ import math
 
 
 class Node:
+    '''Class describing one node in the graph'''
+
     def __init__(self, wind):
+        '''Node constructor'''
         self.wind = wind
         self.neighBors = [None for _ in range(8)]
         self.reset()
 
     def reset(self):
+        '''Reset node to beginning state so Dijstra can be run again'''
         self.distance = math.inf
         self.previous = None
 
     def visit(self):
+        '''Visit node step of dijstra'''
         for index, neighbor in enumerate(self.neighBors):
             if not neighbor:
                 continue
@@ -21,6 +26,7 @@ class Node:
                 neighbor.previous = self
 
     def calculateDistance(self, neighborIndex):
+        '''Calculates distance from this node to some neighbor node'''
         sailing_type = abs(self.wind['direction'] / 45 - (neighborIndex - 1))
         distance = 1 if neighborIndex in [1, 3, 5, 7] else math.sqrt(2)
         if sailing_type == 0 or sailing_type == 8:
@@ -40,4 +46,5 @@ class Node:
         else: return distance / speed
 
     def __lt__(self, other):
+        '''Compares two nodes so a node list can be sorted'''
         return self.distance < other.distance
