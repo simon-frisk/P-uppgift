@@ -89,7 +89,7 @@ class Gui:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x = (event.pos[0] - self.gui_width) // self.node_width
                     y = event.pos[1] // self.node_width
-                    if y >= 0 and y < self.sea_height and x >= 0 and x < self.sea_height:
+                    if self.graph.isCoordInGraph((x, y)):
                         if pressed[pygame.K_s]:
                             self.graph.setStart((x, y))
                         if pressed[pygame.K_g]:

@@ -1,8 +1,6 @@
 import sys
 import re
 
-#TODO: one graph method to check if coord is inside graph
-
 class TextInterface:
   '''Command line interface'''
 
@@ -24,12 +22,12 @@ class TextInterface:
         self.graph.generateRandom(*extractNumbers(userInput))
       elif re.match('^s \d+ \d+$', userInput):
         numbers = extractNumbers(userInput)
-        if numbers[1] >= 0 and numbers[1] < self.graph.height and numbers[0] >= 0 and numbers[0] < self.graph.width:
+        if self.graph.isCoordInGraph(numbers):
           self.graph.setStart(numbers)
         else: print('Coordinate outside graph')
       elif re.match('^g \d+ \d+$', userInput):
         numbers = extractNumbers(userInput)
-        if numbers[1] >= 0 and numbers[1] < self.graph.height and numbers[0] >= 0 and numbers[0] < self.graph.width:
+        if self.graph.isCoordInGraph(numbers):
           self.graph.setGoal(numbers)
         else: print('Coordinate outside graph')
       elif userInput == 'save':

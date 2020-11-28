@@ -59,6 +59,12 @@ class Graph:
                 wind_data.append({'strength': strength, 'direction': direction})
         self.buildGraph(wind_data, width, height)
 
+    def isCoordInGraph(self, coord):
+        '''Check if coordinate inside graph'''
+        if coord[1] >= 0 and coord[1] < self.height and coord[0] >= 0 and coord[0] < self.width:
+            return True
+        return False
+
     def loadFromFile(self):
         '''Reads wind data from file and builds graph from this'''
         data_file = open('wind_data.txt', 'r')
