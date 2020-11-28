@@ -3,6 +3,7 @@ import re
 
 
 class TextInterface:
+  '''Command line interface'''
 
   def __init__(self, graph):
     '''Textinterface constructor'''
@@ -19,10 +20,11 @@ class TextInterface:
       if re.match('^r \d+ \d+$', userInput):
         numbers = userInput.split(' ')[1:]
         self.graph.generateRandom(int(numbers[0]), int(numbers[1]))
+      if userInput == 'save':
+        self.graph.saveToFile()
       elif userInput == 'q':
         running = False
       else: print('Input invalid')
-
 
   def printGraph(self):
     '''Prints the graph to the command line'''
