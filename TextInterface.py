@@ -1,6 +1,7 @@
 import sys
 import re
 
+#TODO: one graph method to check if coord is inside graph
 
 class TextInterface:
   '''Command line interface'''
@@ -11,16 +12,27 @@ class TextInterface:
 
   def run(self):
     '''The main loop of the command line interface'''
-    running = True;
+    running = True
+
+    extractNumbers = lambda string : list(map(lambda x: int(x), userInput.split(' ')[1:]))
 
     while running:
       userInput = input('Enter input ...\n')
       if userInput == 'p':
         self.printGraph()
-      if re.match('^r \d+ \d+$', userInput):
-        numbers = userInput.split(' ')[1:]
-        self.graph.generateRandom(int(numbers[0]), int(numbers[1]))
-      if userInput == 'save':
+      elif re.match('^r \d+ \d+$', userInput):
+        self.graph.generateRandom(*extractNumbers(userInput))
+      elif re.match('^s \d+ \d+$', userInput):
+        numbers = extractNumbers(userInput)
+        if numbers[1] >= 0 and numbers[1] < self.graph.height and numbers[0] >= 0 and numbers[0] < self.graph.width:
+          self.graph.setStart(numbers)
+        else: print('Coordinate outside graph')
+      elif re.match('^g \d+ \d+$', userInput):
+        numbers = extractNumbers(userInput)
+        if numbers[1] >= 0 and numbers[1] < self.graph.height and numbers[0] >= 0 and numbers[0] < self.graph.width:
+          self.graph.setGoal(numbers)
+        else: print('Coordinate outside graph')
+      elif userInput == 'save':
         self.graph.saveToFile()
       elif userInput == 'q':
         running = False
@@ -32,8 +44,16 @@ class TextInterface:
       if index % self.graph.width == 0:
         print('\n', end='')
 
+      nodeCharacter = '_'
+      if node == self.graph.startNode:
+        nodeCharacter = 'S'
+      elif node == self.graph.goalNode:
+        nodeCharacter = 'G'
+      elif node in self.graph.bestPath:
+        nodeCharacter = 'P'
+
       print(
-        '_',
+        nodeCharacter,
         node.wind['strength'],
         self.getWindAngleString(node.wind['direction']),
         sep='', end='  '
