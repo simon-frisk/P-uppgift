@@ -1,6 +1,7 @@
 import sys
 from graph import Graph
 from gui import Gui
+import TextInterface
 
 
 def main():
@@ -10,7 +11,8 @@ def main():
         gui = Gui(graph)
         gui.run()
     elif mode == '-cli':
-        pass
+        cli = TextInterface.TextInterface(graph)
+        cli.run()
     else:
         print('No mode choosen')
 
