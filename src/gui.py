@@ -58,7 +58,7 @@ class Gui:
         self.helpText = pygame_gui.elements.UITextBox(
             relative_rect=pygame.Rect((10, 10), (self.gui_width - 20, 100)),
             manager=self.ui_manager,
-            html_text='<p>Click the sea and hold s to select start position, g to select goal position</p>'
+            html_text='Click the sea and hold s to select start position, g to select goal position'
         )
         self.generateNewGraphButton = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect((10, 120), (self.gui_width - 20, 40)),
