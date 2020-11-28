@@ -23,7 +23,7 @@ class Node:
     def calculateDistance(self, neighborIndex):
         sailing_type = abs(self.wind['direction'] / 45 - (neighborIndex - 1))
         distance = 1 if neighborIndex in [1, 3, 5, 7] else math.sqrt(2)
-        if sailing_type == 0:
+        if sailing_type == 0 or sailing_type == 8:
             speed = 0
         elif sailing_type == 1 or sailing_type == 7:
             speed = self.wind['strength'] if self.wind['strength'] < 5 else 0
